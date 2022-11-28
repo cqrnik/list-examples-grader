@@ -5,12 +5,7 @@ set -e
 rm -rf student-submission
 git clone $1 student-submission
 
-
-
-
 cd student-submission
-
-
 
 
 if [ -f ListExamples.java ]
@@ -20,7 +15,6 @@ else
     echo "file does not exist in given repository"
     exit
 fi
-
 
 cp ../TestListExamples.java ./
 
@@ -39,12 +33,7 @@ echo "running tests..."
 java -cp ".;../lib/hamcrest-core-1.3.jar;../lib/junit-4.13.2.jar" org.junit.runner.JUnitCore TestListExamples > ListTestResult.txt
 if [ $? -ne 0 ]
 then 
-    
-    echo "hi"
     java -cp ".;../lib/hamcrest-core-1.3.jar;../lib/junit-4.13.2.jar" org.junit.runner.JUnitCore TestListExamples > ListTestResult.txt
-    echo "hi2"
-
-
 fi
 
 echo "GRADING:"
