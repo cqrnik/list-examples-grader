@@ -27,23 +27,46 @@ javac -cp ".;../lib/hamcrest-core-1.3.jar;../lib/junit-4.13.2.jar" TestListExamp
 if [ $? -eq 0 ]
 then 
     echo "file compiles correctly"
-    echo "file compiles correctly" > ListCompile.txt
     
 else 
     echo "file does not compile correctly"
     exit
 fi
-set -e
+
 echo "running tests..."
 java -cp ".;../lib/hamcrest-core-1.3.jar;../lib/junit-4.13.2.jar" org.junit.runner.JUnitCore TestListExamples > ListTestResult.txt
 if [ $? -ne 0 ]
 then 
+    echo "hi2"
     java -cp ".;../lib/hamcrest-core-1.3.jar;../lib/junit-4.13.2.jar" org.junit.runner.JUnitCore TestListExamples 2> ListTestResult.txt
-fi
-    
-echo "GRADING:"
+else 
+    echo "hi"
+    java -cp ".;../lib/hamcrest-core-1.3.jar;../lib/junit-4.13.2.jar" org.junit.runner.JUnitCore TestListExamples > ListTestResult.txt
+    echo "hi2"
 
-echo []
+
+fi
+
+echo "GRADING:"
+total_tests=$(grep -B 1 "Time" ListTestResult.txt | head -n +1 |grep -o '\.' | wc -l ) 
+junit_errors=$(grep -B 1 "Time" ListTestResult.txt | head -n +1 |grep -o 'E' | wc -l)
+
+echo "Total Tests Run:"
+
+echo $total_tests
+echo "Errors:"
+echo $junit_errors
+
+echo "FINAL SCORE:"
+echo $((total_tests - junit_errors))"/"$total_tests
+
+
+
+
+
+
+
+
 
 
 
