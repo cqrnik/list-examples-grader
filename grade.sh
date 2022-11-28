@@ -6,6 +6,8 @@ rm -rf student-submission
 git clone $1 student-submission
 
 
+
+
 cd student-submission
 
 
@@ -37,9 +39,7 @@ echo "running tests..."
 java -cp ".;../lib/hamcrest-core-1.3.jar;../lib/junit-4.13.2.jar" org.junit.runner.JUnitCore TestListExamples > ListTestResult.txt
 if [ $? -ne 0 ]
 then 
-    echo "hi2"
-    java -cp ".;../lib/hamcrest-core-1.3.jar;../lib/junit-4.13.2.jar" org.junit.runner.JUnitCore TestListExamples 2> ListTestResult.txt
-else 
+    
     echo "hi"
     java -cp ".;../lib/hamcrest-core-1.3.jar;../lib/junit-4.13.2.jar" org.junit.runner.JUnitCore TestListExamples > ListTestResult.txt
     echo "hi2"
@@ -50,7 +50,6 @@ fi
 echo "GRADING:"
 total_tests=$(grep -B 1 "Time" ListTestResult.txt | head -n +1 |grep -o '\.' | wc -l ) 
 junit_errors=$(grep -B 1 "Time" ListTestResult.txt | head -n +1 |grep -o 'E' | wc -l)
-
 echo "Total Tests Run:"
 
 echo $total_tests
